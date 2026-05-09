@@ -90,6 +90,12 @@ This will:
 - install the worker to `/usr/local/bin/teld-worker`
 - launch the daemon
 
+When started, the daemon also writes a PID file at `/var/lib/teld/teld-worker.pid`.
+
+To stop the running worker:
+
+- `make kill`
+
 To inspect the collected data visually:
 
 - `make visualizer`
@@ -107,11 +113,13 @@ It also creates indexes on `timestamp`, `pid`, and `command` for faster queries.
 
 - Worker log file: `/tmp/teld-worker.log`
 - Database file: `/var/lib/teld/telemetry.db`
+- PID file: `/var/lib/teld/teld-worker.pid`
 
 ## Cleanup and uninstall
 
 Makefile targets:
 
+- `make kill` — stop the running worker using the PID file
 - `make clean` — remove build artifacts and the worker log
 - `make clean-data` — remove `/var/lib/teld`
 - `make uninstall` — remove the installed worker and data directory

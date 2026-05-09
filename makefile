@@ -42,7 +42,10 @@ $(DATA_DIR):
 
 run: all install
 	./$(BUILD_DIR)/launcher
-.PHONY: all run clean install uninstall
+
+kill:
+	@echo "Stopping teld-worker..."
+	kill $(shell cat /var/lib/teld/teld-worker.pid) || echo "teld-worker not running"
 
 clean:
 	$(RS) clean

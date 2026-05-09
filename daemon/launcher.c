@@ -36,6 +36,16 @@ int main() {
 
         printf("Starting teld-worker...\n");
         fflush(stdout);
+
+        // store pid in /var/lib/teld/teld-worker.pid
+        FILE *pid_file = fopen("/var/lib/teld/teld-worker.pid", "w");
+        if (pid_file) {
+            fprintf(pid_file, "%d\n", getpid());
+            fclose(pid_file);
+        } else {
+            perror("Failed to write PID file");
+        }
+
         execl("/usr/local/bin/teld-worker", "teld-worker", NULL);
         // if execl returns, it means it failed
         perror("Failed to launch teld-worker");
